@@ -3,8 +3,15 @@ console.log("Welome to Rock-Paper-Scissors: console edition! \n\nReady to play? 
 let userThrow = prompt("Welome to Rock-Paper-Scissors: console edition! \n\nReady to play? Just enter 'rock', 'paper', or 'scissors'.");
 
 let userScore = cpuScore = 0;
+let turnCount = 1;
 
-runRound();
+while(turnCount <= 5){
+    if(turnCount > 1){
+        userThrow = prompt(`Welcome to round ${turnCount}! Enter your throw:`);
+    }
+    runRound();
+}
+
 
 function userChoice(userThrow){
     userThrow = userThrow.trim().toLowerCase();
@@ -66,25 +73,23 @@ function runRound(){
     let cpuThrowText = rollToText(cpuThrow);    //store a corresponding string to the CPU's roll
 
     let userMinusCPU = calculateWinner(userChoice(userThrow), cpuThrow);   //we will compute this by looking at the value of the user's guess minus the value of a cpu guess, because they are both represented as ints from 0 to 2
-
     constructLog(userThrow, cpuThrowText, userMinusCPU);
-
-
+    turnCount++;
  
 }
 
 function constructLog(userTxt, cpuTxt, calc){
     string1 = `Your throw was ${userTxt}, the CPU's throw was ${cpuTxt}.`
     if(calc === 0){
-        string2 = "You won this round!";
+        string2 = `You won round ${turnCount}!`;
         userScore++;
     }
     else if(calc === 1){
-        string2 = "The computer won this round!";
+        string2 = `The computer won round ${turnCount}!`;
         cpuScore++;
     }
     else if(calc === 2){
-        string2 = "It's a draw!";
+        string2 = `Round ${turnCount} is a draw!`;
     }
     string3 = `Your score is ${userScore}, the computer's score is ${cpuScore}`;
 
