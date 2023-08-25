@@ -1,0 +1,83 @@
+#my-button{
+    background-color: red;
+}
+
+html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.title-zone{
+    background-color: peachpuff;
+    display: flex;
+}
+.title{
+    font-size: 32px;
+    font-weight: 700;
+    margin: 10%;
+    text-align: center;
+}
+
+.info-zone{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.message-zone{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.score-zone{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: space-around;
+}
+
+.player-side, .cpu-side{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 50px;
+}
+
+.player-num, .cpu-num{
+    font-size: 64px;
+    margin: 0px;
+}
+
+
+.player-dots, .cpu-dots{
+    display: flex;
+    flex-direction: row;
+}
+
+.player-dots > div, .cpu-dots > div{
+    padding: 10px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 4px;
+}
+
+.input-zone{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: space-around;
+}
+
+.input-zone > button{
+    margin: 20px;
+    width: 30vw;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: gold;
+    font-size: medium;
+}

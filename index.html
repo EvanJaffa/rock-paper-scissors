@@ -4,12 +4,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" src="styles.css">
-    <script src="script.js"></script>
-    <title>Rock Paper Scissors</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Rock-Paper-Scissors</h1>
-    <p>Check the console to play!</p>
+    <div id="test-div">TEST DIV
+        <button id="my-button">My Button</button>
+    </div>
+
+    <div class="header">header</div>
+    <div class="title-zone">
+        <div class="title">Ultimate Rock Paper Scissors</div>
+    </div>
+    <div class="info-zone">
+        <div class="message-zone">
+            Welcome to Ultimate Rock Paper Scissors!<br><br>First to 5 points wins.<br><br>Think you can beat the computer? Start by clicking your first throw below!
+        </div>
+        <div class="score-zone">
+            <div class="player-side">
+                <div class="side-label">Player Score</div>
+                <div class="player-num">0</div>
+                <div class="player-dots">
+                    <div id="player-dot-1"></div>
+                    <div id="player-dot-2"></div>
+                    <div id="player-dot-3"></div>
+                    <div id="player-dot-4"></div>
+                    <div id="player-dot-5"></div>
+                </div>
+            </div>
+            <div class="cpu-side">
+                <div class="side-label">CPU Score</div>
+                <div class="cpu-num">0</div>
+                <div class="cpu-dots">
+                    <div id="cpu-dot-1"></div>
+                    <div id="cpu-dot-2"></div>
+                    <div id="cpu-dot-3"></div>
+                    <div id="cpu-dot-4"></div>
+                    <div id="cpu-dot-5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="input-zone">
+        <button id="rock-button">Rock</button>
+        <button id="paper-button">Paper</button>
+        <button id="scissors-button">Scissors</button>
+    </div>
+    </div>
+
 </body>
 </html>

@@ -1,97 +1,78 @@
-console.log("Welome to Rock-Paper-Scissors: console edition! \n\nReady to play? Just enter 'rock', 'paper', or 'scissors'.");
+//initialize DOM references
+const messageZone = document.querySelector(".message-zone");    // area where messages will be displayed
+const playerNum = document.querySelector(".player-num");        // area where player score is displayed
+const cpuNum = document.querySelector(".cpu-num");              // area where cpu score is displayed
 
-let userThrow = prompt("Welome to Rock-Paper-Scissors: console edition! \n\nReady to play? Just enter 'rock', 'paper', or 'scissors'.");
+const rockBtn = document.querySelector("#rock-button");         // input button for rock
+const paperBtn = document.querySelector("#paper-button");       // input button for paper
+const scissorsBtn = document.querySelector("#scissors-button"); // input button for scissors
 
-let userScore = cpuScore = 0;
-let turnCount = 1;
+let playerScore, cpuScore, turnsElapsed = 0;
 
-while(turnCount <= 5){
-    if(turnCount > 1){
-        userThrow = prompt(`Welcome to round ${turnCount}! Enter your throw:`);
-    }
-    runRound();
+rockBtn.addEventListener('click', function(){
+    runRound(0)
+});
+paperBtn.addEventListener('click', function(){
+    runRound(1)
+});
+scissorsBtn.addEventListener('click', function(){
+    runRound(2)
+});
+
+function runRound(playerChoice){
+    
+    let cpuChoice = getCpuChoice();
+
+    let playerChoiceText = choiceToText(playerChoice);
+    let cpuChoiceText = choiceToText(cpuChoice);
+
+    let roundWinner = determineWinner(playerChoice, cpuChoice);
+
+    console.log(`Playerchoice: ${playerChoiceText}, cpuChoice: ${cpuChoiceText}, result: ${roundWinner}`);
+
+    turnsElapsed++;
+
+    if(roundWinner == 2){ drawProcedure()};
+    if(roundWinner == 1){ playerWinProcedure()};
+    if(roundWinner == 0){ cpuWinProcedure()};
+
+
 }
 
-
-function userChoice(userThrow){
-    userThrow = userThrow.trim().toLowerCase();
-    switch(userThrow){
-        case "rock":
-            return 0;
-        case "paper":
-            return 1;
-        case "scissors":
-            return 2;
-        default:
-            return "other";
-    }
+function getCpuChoice(){
+    return Math.floor(Math.random()*3);
 }
 
-function rollToText(input){
+function choiceToText(input){
     switch(input){
         case 0:
-            return "rock";
+            return "Rock";
         case 1:
-            return "paper";
+            return "Paper";
         case 2:
-            return "scissors";
+            return "Scissors";
         default:
-            return "other";
-    }
-}
-
-function cpuChoice(){
-    let choice = Math.floor(Math.random()*3);
-    return choice;
-}
-
-// this function will compare the user's and CPU's inputs. it will return 0 if the user won, 1 if the cpu won, and 2 if there is a draw
-function calculateWinner(userNum, cpuNum){
-    let userMinusCPU = userNum - cpuNum;  //we will compute this by looking at the value of the user's guess minus the value of a cpu guess, because they are both represented as ints from 0 to 2
-
-    //based on the value of userMinusCPU, we know the outcome of the round.
-    switch(userMinusCPU) {
-        case 0:         // if the value is 0, there was a draw. Return 2.
-            return 2;
-        case 1:         // if the value is 1, the user won. return 0.
-            return 0;
-        case 2:         // if the value is 2, the CPU won. return 1.
-            return 1;
-        case -1:        // if the value is -1, the CPU won. return 1.
-            return 1;
-        case -2:        // if the value is -2, the user won. return 0.
-            return 0;
-        default:        // if something else happens, that's an error
             return "error";
     }
 }
 
+function determineWinner(playerChoice, cpuChoice){
+    let computation = playerChoice - cpuChoice;
+    // Because Rock is represented as 0, Paper as 1, and Scissors as 2,
+    // we can determine the winner of any game from the results of the
+    // above subtraction computation.
+    // If the result is +1 or -2, the player wins
+    // If the result is -1 or +2, the cpu wins
 
-function runRound(){
+    if(computation == 0) return 2;        // on return, 2 will signal a draw.
+    if(computation == 1 || computation == -2) return 1; // return 1 signals player win
+    if(computation == 2 || computation == -1) return 0; // return 0 signals cpu win
+}  
 
-    let cpuThrow = cpuChoice();                 //store a CPU roll to a var
-    let cpuThrowText = rollToText(cpuThrow);    //store a corresponding string to the CPU's roll
-
-    let userMinusCPU = calculateWinner(userChoice(userThrow), cpuThrow);   //we will compute this by looking at the value of the user's guess minus the value of a cpu guess, because they are both represented as ints from 0 to 2
-    constructLog(userThrow, cpuThrowText, userMinusCPU);
-    turnCount++;
- 
+function drawProcedure(){
+    messageZone.innerHTML = `A draw! You and the computer both chose ${playerChoice}.<br><br>Ready for Round ${turnsElapsed + 1}? Choose your next throw below to move on!`;
 }
 
-function constructLog(userTxt, cpuTxt, calc){
-    string1 = `Your throw was ${userTxt}, the CPU's throw was ${cpuTxt}.`
-    if(calc === 0){
-        string2 = `You won round ${turnCount}!`;
-        userScore++;
-    }
-    else if(calc === 1){
-        string2 = `The computer won round ${turnCount}!`;
-        cpuScore++;
-    }
-    else if(calc === 2){
-        string2 = `Round ${turnCount} is a draw!`;
-    }
-    string3 = `Your score is ${userScore}, the computer's score is ${cpuScore}`;
-
-    console.log(`${string1}\n${string2}\n${string3}`);
+function playerWinProcedure(){
+    messageZone.innerHTML = `You won! You chose ${playerChoiceText} and the cpu chose ${cpuChoiceText}.`
 }
