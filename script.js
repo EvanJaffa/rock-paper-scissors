@@ -7,7 +7,7 @@ const rockBtn = document.querySelector("#rock-button");         // input button 
 const paperBtn = document.querySelector("#paper-button");       // input button for paper
 const scissorsBtn = document.querySelector("#scissors-button"); // input button for scissors
 
-let playerScore, cpuScore, turnsElapsed = 0;
+let playerScore = 0, cpuScore = 0, turnsElapsed = 0;
 
 rockBtn.addEventListener('click', function(){
     runRound(0)
@@ -28,13 +28,26 @@ function runRound(playerChoice){
 
     let roundWinner = determineWinner(playerChoice, cpuChoice);
 
-    console.log(`Playerchoice: ${playerChoiceText}, cpuChoice: ${cpuChoiceText}, result: ${roundWinner}`);
+    console.log(`player choice: ${playerChoiceText}, cpu choice: ${cpuChoiceText}, result: ${roundWinner}`);
+    console.log(`player score: ${playerScore}; cpu score: ${cpuScore}`);
 
     turnsElapsed++;
 
-    if(roundWinner == 2){ drawProcedure()};
-    if(roundWinner == 1){ playerWinProcedure()};
-    if(roundWinner == 0){ cpuWinProcedure()};
+    if(roundWinner == 2){   // draw procedure
+        messageZone.innerHTML = `A draw! You and the computer both guessed ${playerChoiceText}.<br>Ready for the next round? Select your next option below.`
+    };
+    if(roundWinner == 1){   // player win
+        messageZone.innerHTML = `You won! You chose ${playerChoiceText} and the computer chose ${cpuChoiceText}.<br>Ready for Round ${turnsElapsed+1}? Select your next option below.`
+        playerScore++;
+        playerNum.innerHTML = `${playerScore}`;
+        if(playerScore == 5 || cpuScore == 5){endGame();}
+    };
+    if(roundWinner == 0){   // cpu win
+        messageZone.innerHTML = `Oops, the computer won! You chose ${playerChoiceText} and the computer chose ${cpuChoiceText}.<br>Ready for Round ${turnsElapsed+1}? Select your next option below.`
+        cpuScore++;
+        cpuNum.innerHTML = `${cpuScore}`;
+        if(playerScore == 5 || cpuScore == 5){endGame();}
+    };
 
 
 }
@@ -69,10 +82,20 @@ function determineWinner(playerChoice, cpuChoice){
     if(computation == 2 || computation == -1) return 0; // return 0 signals cpu win
 }  
 
-function drawProcedure(){
-    messageZone.innerHTML = `A draw! You and the computer both chose ${playerChoice}.<br><br>Ready for Round ${turnsElapsed + 1}? Choose your next throw below to move on!`;
-}
-
-function playerWinProcedure(){
-    messageZone.innerHTML = `You won! You chose ${playerChoiceText} and the cpu chose ${cpuChoiceText}.`
+function endGame(){
+        rockBtn.classList.remove("active-button");
+        rockBtn.classList.add("inactive-button");
+        paperBtn.classList.remove("active-button");
+        paperBtn.classList.add("inactive-button");
+        scissorsBtn.classList.remove("active-button");
+        scissorsBtn.classList.add("inactive-button");
+        rockBtn.removeEventListener('click', function(){
+            runRound(0)
+        });
+        paperBtn.removeEventListener('click', function(){
+            runRound(1)
+        });
+        scissorsBtn.removeEventListener('click', function(){
+            runRound(2)
+        });
 }
